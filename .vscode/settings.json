@@ -1,0 +1,34 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#32a9b8",
+        "activityBar.background": "#32a9b8",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#f8e6f6",
+        "activityBarBadge.foreground": "#15202b",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#32a9b8",
+        "statusBar.background": "#278490",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#32a9b8",
+        "statusBarItem.remoteBackground": "#278490",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#278490",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#27849099",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "YOUTUBE_API_URL": "https://youtube.googleapis.com/youtube/v3",
+            "CHANNELS_URL": "https://www.googleapis.com/youtube/v3/channels",
+            "PLAYLISTS_URL": "https://www.googleapis.com/youtube/v3/playlists",
+            "PLAYLIST_ITEMS_URL": "https://www.googleapis.com/youtube/v3/playlistItems",
+        }
+    },
+    "peacock.color": "#278490",
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on"
+}

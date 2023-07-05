@@ -1,0 +1,30 @@
+
+### First get the channel 
+# @name channelRes
+GET {{CHANNELS_URL}}?mine=true
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Accept: application/json
+
+### Then get the playlists associated with that channelId
+# @name playlistRes
+GET {{PLAYLISTS_URL}}?channelId={{channelRes.response.body.items[0].id}}&part=status&maxResults=10
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Accept: application/json
+
+### Then get the items belonging to that playlist (all fields)
+# @name playlistItemRes
+GET {{PLAYLIST_ITEMS_URL}}?playlistId={{playlistRes.response.body.items[0].id}}&part=snippet,contentDetails
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Accept: application/json
+
+### Or get only the necessary fields
+# @name playlistItemRes
+GET {{PLAYLIST_ITEMS_URL}}?playlistId={{playlistRes.response.body.items[0].id}}&part=snippet,contentDetails&fields=items(id,snippet/title,snippet/description,snippet/thumbnails/maxres,snippet/videoOwnerChannelTitle,snippet/videoOwnerChannelId,contentDetails),nextPageToken
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Accept: application/json
+
+### Then scroll to the next page
+# @name playlistItemScrollRes
+GET {{PLAYLIST_ITEMS_URL}}?playlistId={{playlistRes.response.body.items[0].id}}&part=snippet,contentDetails&fields=items(id,snippet/title,snippet/description,snippet/thumbnails/maxres,snippet/videoOwnerChannelTitle,snippet/videoOwnerChannelId,contentDetails),nextPageToken&pageToken={{playlistItemRes.response.body.nextPageToken}}
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Accept: application/json

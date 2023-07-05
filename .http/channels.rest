@@ -1,0 +1,12 @@
+
+### Get Access Token holder's Channel
+# @name channelRes
+GET {{CHANNELS_URL}}?mine=true&part=status,snippet
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Accept: application/json
+
+### Get another users channel
+# @name channelRes
+GET {{CHANNELS_URL}}?forUsername=PewDiePie&part=snippet
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Accept: application/json
