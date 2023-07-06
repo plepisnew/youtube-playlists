@@ -1,5 +1,0 @@
-
-### Send reques to Authorization Server to initiate code flow
-# @name authorize
-GET {{$dotenv AUTH_URI}}
-Accept: application/json

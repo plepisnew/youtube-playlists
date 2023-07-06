@@ -11,6 +11,12 @@ GET {{PLAYLISTS_URL}}?channelId={{channelRes.response.body.items[0].id}}&part=st
 Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
 Accept: application/json
 
+### Or simply set `mine` to `true`
+# @name playlistRes
+GET {{PLAYLISTS_URL}}?mine=true
+Authorization: Bearer {{$dotenv ACCESS_TOKEN}}
+Accept: application/json
+
 ### Then get the items belonging to that playlist (all fields)
 # @name playlistItemRes
 GET {{PLAYLIST_ITEMS_URL}}?playlistId={{playlistRes.response.body.items[0].id}}&part=snippet,contentDetails

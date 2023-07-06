@@ -1,14 +1,36 @@
 import axios from "axios";
-import { t } from "../trpc";
-import { getUrl } from "@/utils/youtube";
+import { protectedProcedure, router } from "../trpc";
+import { getUrl, isSuccess } from "@/utils/youtube";
+import { TRPCError } from "@trpc/server";
+import { YouTubeResponse } from "@/@types/youtube";
 
-export const channelRouter = t.router({
-  getId: t.procedure.query(async ({ ctx }) => {
-    const channelsUrl = getUrl({ resource: "channel", action: "list" });
-    console.log(channelsUrl);
-    const { data } = await axios.get(channelsUrl, {
-      params: { mine: true },
-    });
-    return data;
-  }),
+export const channelRouter = router({
+	getSelf: protectedProcedure.query(async ({ ctx }) => {
+		const channelsUrl = getUrl({ resource: "channel" });
+
+		try {
+		} catch (err) {
+			throw new TRPCError({
+				message: JSON.stringify(err),
+				code: "BAD_REQUEST",
+			});
+		}
+		const youtubeResponse = (
+			await axios.get(channelsUrl, {
+				params: { mine: true, part: "snippet" },
+				headers: {
+					Authorization: `Bearer ${ctx.accessToken}`,
+				},
+			})
+		).data as YouTubeResponse;
+
+		if (!isSuccess(youtubeResponse)) {
+			throw new TRPCError({
+				message: "Idek when you would see this",
+				code: "BAD_REQUEST",
+			});
+		}
+
+		return youtubeResponse.items[0];
+	}),
 });

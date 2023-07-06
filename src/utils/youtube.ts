@@ -1,12 +1,18 @@
-import { YouTubeAction, YouTubeResource } from "@/@types/youtube";
+import {
+	YouTubeAction,
+	YouTubeResource,
+	YouTubeResponse,
+	YouTubeResponseSuccessful,
+	youtubeResponseSuccessfulSchema,
+} from "@/@types/youtube";
 
-export const BASE_URL =
-  "https://developers.google.com/apis-explorer/#p/youtube/v3/youtube";
+export const BASE_URL = "https://www.googleapis.com/youtube/v3";
 
-export type GetUrl = (options: {
-  resource: YouTubeResource;
-  action: YouTubeAction;
-}) => string;
+export type GetUrl = (options: { resource: YouTubeResource }) => string;
 
-export const getUrl: GetUrl = ({ resource, action }) =>
-  `${BASE_URL}.${resource}s.${action}`;
+export const getUrl: GetUrl = ({ resource }) => `${BASE_URL}/${resource}s`;
+
+export const isSuccess = (
+	youtubeResponse: YouTubeResponse,
+): youtubeResponse is YouTubeResponseSuccessful =>
+	youtubeResponseSuccessfulSchema.safeParse(youtubeResponse).success;

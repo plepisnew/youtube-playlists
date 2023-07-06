@@ -20,7 +20,7 @@
     },
     "rest-client.environmentVariables": {
         "$shared": {
-            "YOUTUBE_API_URL": "https://youtube.googleapis.com/youtube/v3",
+            "YOUTUBE_API_URL": "https://www.googleapis.com/youtube/v3/channels",
             "CHANNELS_URL": "https://www.googleapis.com/youtube/v3/channels",
             "PLAYLISTS_URL": "https://www.googleapis.com/youtube/v3/playlists",
             "PLAYLIST_ITEMS_URL": "https://www.googleapis.com/youtube/v3/playlistItems",
