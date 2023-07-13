@@ -1,4 +1,3 @@
-import { didFail } from "@/utils/youtube";
 import { z } from "zod";
 
 // $ YOUTUBE INTERNALS
@@ -62,177 +61,217 @@ export type Many = z.infer<typeof manySchema>;
  * * https://developers.google.com/youtube/v3/docs/channels
  */
 
-export const channelSchema = z.object({
-	snippet: z.object({
-		title: z.string(),
-		description: z.string(),
-		customUrl: z.string(),
-		publishedAt: z.string().datetime(),
-		thumbnails: z.record(
-			z.string(),
-			z.object({
-				url: z.string().url(),
-				width: z.number(),
-				height: z.number(),
-			}),
-		),
-		defaultLanguage: z.string(),
-		localized: z.object({
-			title: z.string(),
-			descrpition: z.string(),
-		}),
-		country: z.string(),
-	}),
-	contentDetails: z.object({
-		relatedPlaylists: z.object({
-			likes: z.string(),
-			favorites: z.string(),
-			uploads: z.string(),
-		}),
-	}),
-	statistics: z.object({
-		viewCount: z.number(),
-		subscriberCount: z.number(),
-		hiddenSubscriberCount: z.number(),
-		videoCount: z.number(),
-	}),
-	topicDetails: z.object({
-		topicIds: z.array(z.string()),
-		topicCategories: z.array(z.string()),
-	}),
-	status: z.object({
-		privacyStatus: z.string(),
-		isLinked: z.boolean(),
-		longUploadStatus: z.string(),
-		madeForKids: z.boolean(),
-		selfDeclaredMadeForKids: z.boolean(),
-	}),
-	brandedSettings: z.object({
-		channel: z.object({
+export const channelSchema = z
+	.object({
+		snippet: z.object({
 			title: z.string(),
 			description: z.string(),
-			keywords: z.string(),
-			trackingAnalyticsAccountId: z.string(),
-			moderateComments: z.boolean(),
-			unsubscribedTrailer: z.string(),
+			customUrl: z.string(),
+			publishedAt: z.string().datetime(),
+			thumbnails: z.record(
+				z.string(),
+				z.object({
+					url: z.string().url(),
+					width: z.number(),
+					height: z.number(),
+				}),
+			),
 			defaultLanguage: z.string(),
+			localized: z.object({
+				title: z.string(),
+				descrpition: z.string(),
+			}),
 			country: z.string(),
 		}),
-		watch: z.object({
-			textColor: z.string(),
-			backgroundColor: z.string(),
-			featuredPlaylistId: z.string(),
+		contentDetails: z.object({
+			relatedPlaylists: z.object({
+				likes: z.string(),
+				favorites: z.string(),
+				uploads: z.string(),
+			}),
 		}),
-	}),
-	auditDetails: z.object({
-		overallGoodStanding: z.boolean(),
-		communityGuidelinesGoodStanding: z.boolean(),
-		copyrightStrikesGoodStanding: z.boolean(),
-		contentIdClaimsGoodStanding: z.boolean(),
-	}),
-	contentOwnerDetails: z.object({
-		contentOwner: z.string(),
-		timeLinked: z.string().datetime(),
-	}),
-	localizations: z.record(
-		z.string(),
-		z.object({
-			title: z.string(),
-			description: z.string(),
+		statistics: z.object({
+			viewCount: z.number(),
+			subscriberCount: z.number(),
+			hiddenSubscriberCount: z.number(),
+			videoCount: z.number(),
 		}),
-	),
-});
+		topicDetails: z.object({
+			topicIds: z.array(z.string()),
+			topicCategories: z.array(z.string()),
+		}),
+		status: z.object({
+			privacyStatus: z.string(),
+			isLinked: z.boolean(),
+			longUploadStatus: z.string(),
+			madeForKids: z.boolean(),
+			selfDeclaredMadeForKids: z.boolean(),
+		}),
+		brandedSettings: z.object({
+			channel: z.object({
+				title: z.string(),
+				description: z.string(),
+				keywords: z.string(),
+				trackingAnalyticsAccountId: z.string(),
+				moderateComments: z.boolean(),
+				unsubscribedTrailer: z.string(),
+				defaultLanguage: z.string(),
+				country: z.string(),
+			}),
+			watch: z.object({
+				textColor: z.string(),
+				backgroundColor: z.string(),
+				featuredPlaylistId: z.string(),
+			}),
+		}),
+		auditDetails: z.object({
+			overallGoodStanding: z.boolean(),
+			communityGuidelinesGoodStanding: z.boolean(),
+			copyrightStrikesGoodStanding: z.boolean(),
+			contentIdClaimsGoodStanding: z.boolean(),
+		}),
+		contentOwnerDetails: z.object({
+			contentOwner: z.string(),
+			timeLinked: z.string().datetime(),
+		}),
+		localizations: z.record(
+			z.string(),
+			z.object({
+				title: z.string(),
+				description: z.string(),
+			}),
+		),
+	})
+	.merge(singleSchema);
 
 /**
  * * Playlist, which represents a collection of playlist items (videos, streams)
  * * https://developers.google.com/youtube/v3/docs/playlists
  */
 
-export const playlistSchema = z.object({
-	snippet: z.object({
-		publishedAt: z.string().datetime(),
-		channelId: z.string(),
-		title: z.string(),
-		description: z.string(),
-		thumbnails: z.record(
+export const playlistSchema = z
+	.object({
+		snippet: z.object({
+			publishedAt: z.string().datetime(),
+			channelId: z.string(),
+			title: z.string(),
+			description: z.string(),
+			thumbnails: z.record(
+				z.string(),
+				z.object({
+					url: z.string().url(),
+					width: z.number(),
+					height: z.number(),
+				}),
+			),
+			channelTitle: z.string(),
+			defaultLanguage: z.string(),
+			localized: z.object({
+				title: z.string(),
+				description: z.string(),
+			}),
+		}),
+		status: z.object({
+			privacyStatus: z.string(),
+		}),
+		contentDetails: z.object({
+			itemCount: z.number(),
+		}),
+		player: z.object({
+			embedHtml: z.string(),
+		}),
+		localizations: z.record(
 			z.string(),
 			z.object({
-				url: z.string().url(),
-				width: z.number(),
-				height: z.number(),
+				title: z.string(),
+				description: z.string(),
 			}),
 		),
-		channelTitle: z.string(),
-		defaultLanguage: z.string(),
-		localized: z.object({
-			title: z.string(),
-			description: z.string(),
-		}),
-	}),
-	status: z.object({
-		privacyStatus: z.string(),
-	}),
-	contentDetails: z.object({
-		itemCount: z.number(),
-	}),
-	player: z.object({
-		embedHtml: z.string(),
-	}),
-	localizations: z.record(
-		z.string(),
-		z.object({
-			title: z.string(),
-			description: z.string(),
-		}),
-	),
-});
+	})
+	.merge(singleSchema);
 
 /**
  * * Playlist Items, which belong to a Playlist and hold the properties of the actual media
  * * https://developers.google.com/youtube/v3/docs/playlistItems
  */
 
-export const playlistItemSchema = z.object({
-	snippet: z.object({
-		publishedAt: z.string().datetime(),
-		channelId: z.string(),
-		title: z.string(),
-		description: z.string(),
-		thumbnails: z.record(
-			z.string(),
-			z.object({
-				url: z.string().url(),
-				width: z.number(),
-				height: z.number(),
+export const playlistItemSchema = z
+	.object({
+		snippet: z.object({
+			publishedAt: z.string().datetime(),
+			channelId: z.string(),
+			title: z.string(),
+			description: z.string(),
+			thumbnails: z.record(
+				z.string(),
+				z.object({
+					url: z.string().url(),
+					width: z.number(),
+					height: z.number(),
+				}),
+			),
+			channelTitle: z.string(),
+			videoOwnerChannelTitle: z.string(),
+			videoOwnerCannelId: z.string(),
+			playlistId: z.string(),
+			position: z.number(),
+			resourceId: z.object({
+				kind: z.string(),
+				videoId: z.string(),
 			}),
-		),
-		channelTitle: z.string(),
-		videoOwnerChannelTitle: z.string(),
-		videoOwnerCannelId: z.string(),
-		playlistId: z.string(),
-		position: z.number(),
-		resourceId: z.object({
-			kind: z.string(),
-			videoId: z.string(),
 		}),
-	}),
-	contentDetails: z.object({
-		videoId: z.string(),
-		startAt: z.string(),
-		endAt: z.string(),
-		note: z.string(),
-		videoPublishedAt: z.string().datetime(),
-	}),
-	status: z.object({
-		privacyStatus: z.string(),
-	}),
-});
+		contentDetails: z.object({
+			videoId: z.string(),
+			startAt: z.string(),
+			endAt: z.string(),
+			note: z.string(),
+			videoPublishedAt: z.string().datetime(),
+		}),
+		status: z.object({
+			privacyStatus: z.string(),
+		}),
+	})
+	.merge(singleSchema);
 
 export type Channel = z.infer<typeof channelSchema>;
 
 export type Playlist = z.infer<typeof playlistSchema>;
 
 export type PlaylistItem = z.infer<typeof playlistItemSchema>;
+
+// $ YOUTUBE RESOURCE PARTS
+
+export const channelPartSchema = z.enum([
+	"snippet",
+	"content_details",
+	"statistics",
+	"topicDetails",
+	"status",
+	"brandingSettings",
+	"auditDetails",
+	"contentOwnerDetails",
+	"localizations",
+]);
+
+export const playlistPartSchema = z.enum([
+	"snippet",
+	"status",
+	"contentDetails",
+	"player",
+	"localizations",
+]);
+
+export const playlistItemsPartSchema = z.enum([
+	"snippet",
+	"contentDetails",
+	"status",
+]);
+
+export type ChannelPart = z.infer<typeof channelPartSchema>;
+
+export type PlaylistPart = z.infer<typeof playlistPartSchema>;
+
+export type PlaylistItemPart = z.infer<typeof playlistItemsPartSchema>;
 
 // $ YOUTUBE RESPONSES
 
