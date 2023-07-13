@@ -1,4 +1,4 @@
-import { OpenIdConnectResponse } from "@/@types/youtube";
+import * as YouTube from "@/@types/youtube";
 import { env } from "@/env.mjs";
 import axios from "axios";
 import { NextResponse } from "next/server";
@@ -20,7 +20,7 @@ export const GET = async (req: Request) => {
 			access_token: accessToken,
 			id_token: idToken,
 			expires_in: expiresIn,
-		} = data as OpenIdConnectResponse;
+		} = data as YouTube.OpenIdConnectResponse;
 
 		const cookie = `${accessToken}/${idToken}`;
 

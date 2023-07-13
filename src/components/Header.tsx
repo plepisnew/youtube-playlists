@@ -5,18 +5,20 @@ import _ from "lodash";
 import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
 
+const sliderWidth = "120px";
+
 const navItems = [
 	{
-		title: "Home",
+		title: "Explore",
 		path: "/",
 	},
 	{
-		title: "Public",
-		path: "/public",
+		title: "Search",
+		path: "/search",
 	},
 	{
-		title: "Private",
-		path: "/private",
+		title: "My Playlists",
+		path: "/playlists",
 	},
 ];
 
@@ -41,9 +43,10 @@ export const Header: React.FC = () => {
 							<Link
 								href={path}
 								className={clsx(
-									"flex justify-center items-center",
-									"w-[100px]",
+									"flex justify-center items-center text-lg",
+									selectedIndex === index ? "font-semibold" : "font-normal",
 								)}
+								style={{ width: sliderWidth }}
 							>
 								{title}
 							</Link>
@@ -70,26 +73,30 @@ export const Header: React.FC = () => {
 						width={48}
 						className="rounded-lg shdaow-md"
 					/>
-					<a href="/api/auth/logout">Sign out</a>
+					<a href="/api/auth/logout" className="hover:underline ml-10">
+						Sign out
+					</a>
 				</div>
 			) : (
-				<a href="/api/auth/login">Sign in</a>
+				<a href="/api/auth/login" className="hover:underline">
+					Sign in
+				</a>
 			)}
 			<div
 				className={clsx(
 					"absolute left-0 right-0 bottom-3",
 					"h-[2px]",
-					"bg-white/30",
+					"from-red-300/40 to-transparent bg-gradient-to-r",
 				)}
 			></div>
 			<div
 				className={clsx(
-					"absolute bottom-3",
-					"h-[2px] w-[100px]",
+					"absolute bottom-3 h-[2px]",
 					"bg-white/90 transition-all",
 				)}
 				style={{
-					left: `calc(2.5rem + ((100px + 1.25rem) * ${selectedIndex}))`,
+					left: `calc(2.5rem + ((${sliderWidth} + 1.25rem) * ${selectedIndex}))`,
+					width: sliderWidth,
 				}}
 			></div>
 		</header>

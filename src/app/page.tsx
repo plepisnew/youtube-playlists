@@ -1,13 +1,9 @@
 "use client";
 
-import { useAuth } from "@/contexts/AuthContext";
-import { trpc } from "@/utils/trpc";
-
 const HomePage: React.FC = () => {
 	return (
 		<div>
-			{/* <button onClick={() => refetch()}>Get stuff</button> */}
-			{/* <div>{JSON.stringify(data)}</div> */}
+			Display recently found/downloaded playlists/videos idk figure it out
 		</div>
 	);
 };

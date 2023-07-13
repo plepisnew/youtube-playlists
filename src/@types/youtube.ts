@@ -296,3 +296,15 @@ export type ChannelResponse = z.infer<typeof channelResponseSchema>;
 export type PlaylistResponse = z.infer<typeof playlistResponseSchema>;
 
 export type PlaylistItemResponse = z.infer<typeof playlistItemResponseSchema>;
+
+/**
+ * * OpenID Connect response (with tokens)
+ */
+
+export const openIdConnectResponseSchema = z.object({
+	access_token: z.string(),
+	id_token: z.string(),
+	expires_in: z.number(),
+});
+
+export type OpenIdConnectResponse = z.infer<typeof openIdConnectResponseSchema>;
