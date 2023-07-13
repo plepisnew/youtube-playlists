@@ -23,7 +23,7 @@
 			"YOUTUBE_API_URL": "https://www.googleapis.com/youtube/v3/channels",
 			"CHANNELS_URL": "https://www.googleapis.com/youtube/v3/channels",
 			"PLAYLISTS_URL": "https://www.googleapis.com/youtube/v3/playlists",
-			"PLAYLIST_ITEMS_URL": "https://www.googleapis.com/youtube/v3/playlistItems",
+			"PLAYLIST_ITEMS_URL": "https://www.googleapis.com/youtube/v3/playlistItems"
 		}
 	},
 	"peacock.color": "#278490",
@@ -86,5 +86,6 @@
 			"bold": false,
 			"italic": false
 		}
-	]
+	],
+	"cSpell.words": ["authed", "trpc"]
 }

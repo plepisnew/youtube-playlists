@@ -24,7 +24,10 @@ const navItems = [
 
 export const Header: React.FC = () => {
 	const pathname = usePathname();
-	const selectedIndex = _.findIndex(navItems, ({ path }) => path === pathname);
+	const selectedIndex = _.findIndex(
+		navItems,
+		({ path }) => pathname.split("/")[1] === path.split("/")[1],
+	);
 	const auth = useAuth();
 
 	return (
@@ -83,11 +86,11 @@ export const Header: React.FC = () => {
 				</a>
 			)}
 			<div
-				className={clsx(
-					"absolute left-0 right-0 bottom-3",
-					"h-[2px]",
-					"from-red-300/40 to-transparent bg-gradient-to-r",
-				)}
+				className={clsx("absolute left-0 right-0 bottom-3", "h-[2px]")}
+				style={{
+					background:
+						"linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.35) 10%, rgba(255, 255, 255, 0.35) 25%, transparent 50%)",
+				}}
 			></div>
 			<div
 				className={clsx(

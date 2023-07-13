@@ -1,6 +1,6 @@
 import { Channel } from "@/@types/youtube";
 import { trpc } from "@/utils/trpc";
-import { PropsWithChildren, createContext, useContext, useState } from "react";
+import { PropsWithChildren, createContext, useContext } from "react";
 
 export type AuthContext =
 	| {
@@ -30,8 +30,11 @@ const parseJwt = (token: string) => {
 	return JSON.parse(jsonPayload);
 };
 
+// TODO decide whether its better to fetch on every page load or fetch at first and cache
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-	const { data: channel, isSuccess } = trpc.channel.getSelf.useQuery();
+	const { data: channel, isSuccess } = trpc.channel.getSelf.useQuery({
+		part: ["snippet"],
+	});
 
 	return (
 		<AuthContext.Provider

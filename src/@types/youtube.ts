@@ -40,10 +40,13 @@ export const singleSchema = z.object({
 export const manySchema = z.object({
 	kind: z.string(),
 	etag: z.string(),
-	pageInfo: z.object({
-		totalResults: z.number(),
-		resultsPerPage: z.number(),
-	}),
+	pageInfo: z
+		.object({
+			totalResults: z.number(),
+			resultsPerPage: z.number(),
+		})
+		.optional(),
+	nextPageToken: z.string().optional(),
 });
 
 export type Action = z.infer<typeof actionSchema>;
