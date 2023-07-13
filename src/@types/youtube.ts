@@ -1,3 +1,4 @@
+import { didFail } from "@/utils/youtube";
 import { z } from "zod";
 
 // $ YOUTUBE INTERNALS
@@ -259,25 +260,30 @@ export const unsuccessfulResponseSchema = z.object({
  * * Successful response from Authorization Server (data received)
  */
 
-export const successfulResponseSchema = manySchema.merge(
-	z.object({ items: z.array(z.object({})) }),
-);
+export const successfulResponseSchema = manySchema;
 
 /**
  * * Different resource responses (inherently successful)
  */
 
-export const channelResponseSchema = successfulResponseSchema.merge(
-	z.object({ items: z.array(channelSchema) }),
-);
+const getSuccessulResponseSchema = <T extends z.AnyZodObject>(
+	_resourceSchema: T,
+) =>
+	successfulResponseSchema
+		.merge(
+			z.object({
+				items: z.array(_resourceSchema),
+			}),
+		)
+		.or(unsuccessfulResponseSchema);
 
-export const playlistResponseSchema = successfulResponseSchema.merge(
-	z.object({ items: z.array(playlistItemSchema) }),
-);
+export const channelResponseSchema = getSuccessulResponseSchema(channelSchema);
 
-export const playlistItemResponseSchema = successfulResponseSchema.merge(
-	z.object({ items: z.array(playlistItemSchema) }),
-);
+export const playlistResponseSchema =
+	getSuccessulResponseSchema(playlistSchema);
+
+export const playlistItemResponseSchema =
+	getSuccessulResponseSchema(playlistItemSchema);
 
 export type UnsuccessfulResponse = z.infer<typeof unsuccessfulResponseSchema>;
 
@@ -290,32 +296,3 @@ export type ChannelResponse = z.infer<typeof channelResponseSchema>;
 export type PlaylistResponse = z.infer<typeof playlistResponseSchema>;
 
 export type PlaylistItemResponse = z.infer<typeof playlistItemResponseSchema>;
-
-// $ EXAMPLES
-// * or go to `.http/schema.rest`
-
-const channelItemExample: Partial<Channel> = {
-	snippet: {
-		country: "",
-		customUrl: "",
-		defaultLanguage: "",
-		description: "",
-		localized: {
-			descrpition: "",
-			title: "",
-		},
-		publishedAt: "",
-		thumbnails: {},
-		title: "",
-	},
-};
-
-const channelResponseExample: ChannelResponse = {
-	etag: "",
-	kind: "",
-	pageInfo: {
-		resultsPerPage: 5,
-		totalResults: 2,
-	},
-	items: [channelItemExample as Channel, channelItemExample as Channel],
-};

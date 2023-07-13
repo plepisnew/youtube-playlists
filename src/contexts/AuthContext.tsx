@@ -1,19 +1,14 @@
+import { Channel } from "@/@types/youtube";
 import { trpc } from "@/utils/trpc";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
-export type AuthContext = (
+export type AuthContext =
 	| {
 			authed: false;
 	  }
-	| {
+	| ({
 			authed: true;
-			username: string;
-			pictureSrc: string;
-	  }
-) & {
-	login: () => void;
-	logout: () => void;
-};
+	  } & Channel);
 
 export const AuthContext: React.Context<AuthContext> = createContext(
 	{} as AuthContext,
@@ -36,18 +31,17 @@ const parseJwt = (token: string) => {
 };
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-	const { data, isSuccess } = trpc.channel.getSelf.useQuery();
+	const { data: channel, isSuccess } = trpc.channel.getSelf.useQuery();
 
 	return (
 		<AuthContext.Provider
 			value={{
-				login: () => {
-					window.location.pathname = "/api/login";
-				},
-				logout: () => {
-					window.location.pathname = "/api/logout";
-				},
-				...(isSuccess ? { authed: true } : {}),
+				...(isSuccess
+					? {
+							authed: true,
+							...channel,
+					  }
+					: { authed: false }),
 			}}
 		>
 			{children}

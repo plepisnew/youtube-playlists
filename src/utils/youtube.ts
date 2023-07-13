@@ -5,7 +5,7 @@ export const BASE_URL = "https://www.googleapis.com/youtube/v3";
 export const getUrl = ({ resource }: { resource: YouTube.Resource }) =>
 	`${BASE_URL}/${resource}s`;
 
-export const isSuccess = (
-	youtubeResponse: YouTube.Response,
-): youtubeResponse is YouTube.SuccessfulResponse =>
-	YouTube.successfulResponseSchema.safeParse(youtubeResponse).success;
+export const didFail = (
+	youtubeResponse: any,
+): youtubeResponse is YouTube.UnsuccessfulResponse =>
+	YouTube.unsuccessfulResponseSchema.safeParse(youtubeResponse).success;
