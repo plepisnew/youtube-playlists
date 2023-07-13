@@ -15,13 +15,9 @@ export type AuthContext = (
 	logout: () => void;
 };
 
-export const defaultAuthContext: AuthContext = {
-	authed: false,
-	login: () => (window.location.pathname = "/api/auth/login"),
-	logout: () => (window.location.pathname = "/api/auth/logout"),
-};
-
-export const AuthContext = createContext(defaultAuthContext as AuthContext);
+export const AuthContext: React.Context<AuthContext> = createContext(
+	{} as AuthContext,
+);
 
 export const useAuth = () => useContext(AuthContext);
 
@@ -40,10 +36,21 @@ const parseJwt = (token: string) => {
 };
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-	const [value, setValue] = useState<AuthContext>(defaultAuthContext);
+	const { data, isSuccess } = trpc.channel.getSelf.useQuery();
 
-	const { data } = trpc.channel.getSelf.useQuery();
-	console.log(data);
-
-	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+	return (
+		<AuthContext.Provider
+			value={{
+				login: () => {
+					window.location.pathname = "/api/login";
+				},
+				logout: () => {
+					window.location.pathname = "/api/logout";
+				},
+				...(isSuccess ? { authed: true } : {}),
+			}}
+		>
+			{children}
+		</AuthContext.Provider>
+	);
 };

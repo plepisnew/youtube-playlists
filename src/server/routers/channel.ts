@@ -2,7 +2,7 @@ import axios from "axios";
 import { protectedProcedure, router } from "../trpc";
 import { getUrl, isSuccess } from "@/utils/youtube";
 import { TRPCError } from "@trpc/server";
-import { YouTubeResponse } from "@/@types/youtube";
+import * as YouTube from "@/@types/youtube";
 
 export const channelRouter = router({
 	getSelf: protectedProcedure.query(async ({ ctx }) => {
@@ -22,7 +22,7 @@ export const channelRouter = router({
 					Authorization: `Bearer ${ctx.accessToken}`,
 				},
 			})
-		).data as YouTubeResponse;
+		).data as YouTube.Response;
 
 		if (!isSuccess(youtubeResponse)) {
 			throw new TRPCError({
