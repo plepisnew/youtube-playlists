@@ -30,9 +30,8 @@ const PlaylistPage: React.FC<PageParams<"playlistId">> = ({
 const PlaylistItemCard: React.FC<{ playlistItem: PlaylistItem }> = ({
 	playlistItem: { snippet, contentDetails },
 }) => {
-	console.log(snippet.thumbnails);
 	return (
-		<div className="rounded-lg overflow-hidden shadow-lg relative text-white">
+		<div className="rounded-lg overflow-hidden shadow-lg relative text-white group">
 			<div className="from-red-700 to-red-800 bg-gradient-to-br p-3">
 				<p className="font-semibold truncate">{snippet.title}</p>
 			</div>
@@ -42,6 +41,9 @@ const PlaylistItemCard: React.FC<{ playlistItem: PlaylistItem }> = ({
 				alt={snippet.title}
 				className="w-full"
 			/>
+			<div className="absolute bottom-0 top-[calc(24px_+_1.5rem)] -right-16 w-16 bg-black text-white flex flex-col items-center group-hover:right-0 transition-all">
+				test
+			</div>
 		</div>
 	);
 };
