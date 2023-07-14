@@ -1,21 +1,21 @@
 {
 	"workbench.colorCustomizations": {
-		"activityBar.activeBackground": "#32a9b8",
-		"activityBar.background": "#32a9b8",
-		"activityBar.foreground": "#15202b",
-		"activityBar.inactiveForeground": "#15202b99",
-		"activityBarBadge.background": "#f8e6f6",
-		"activityBarBadge.foreground": "#15202b",
+		"activityBar.activeBackground": "#b01313",
+		"activityBar.background": "#b01313",
+		"activityBar.foreground": "#e7e7e7",
+		"activityBar.inactiveForeground": "#e7e7e799",
+		"activityBarBadge.background": "#13ad13",
+		"activityBarBadge.foreground": "#e7e7e7",
 		"commandCenter.border": "#e7e7e799",
-		"sash.hoverBorder": "#32a9b8",
-		"statusBar.background": "#278490",
+		"sash.hoverBorder": "#b01313",
+		"statusBar.background": "#820e0e",
 		"statusBar.foreground": "#e7e7e7",
-		"statusBarItem.hoverBackground": "#32a9b8",
-		"statusBarItem.remoteBackground": "#278490",
+		"statusBarItem.hoverBackground": "#b01313",
+		"statusBarItem.remoteBackground": "#820e0e",
 		"statusBarItem.remoteForeground": "#e7e7e7",
-		"titleBar.activeBackground": "#278490",
+		"titleBar.activeBackground": "#820e0e",
 		"titleBar.activeForeground": "#e7e7e7",
-		"titleBar.inactiveBackground": "#27849099",
+		"titleBar.inactiveBackground": "#820e0e99",
 		"titleBar.inactiveForeground": "#e7e7e799"
 	},
 	"rest-client.environmentVariables": {
@@ -26,7 +26,7 @@
 			"PLAYLIST_ITEMS_URL": "https://www.googleapis.com/youtube/v3/playlistItems"
 		}
 	},
-	"peacock.color": "#278490",
+	"peacock.color": "#820e0e",
 	"editor.tabSize": 2,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
@@ -87,5 +87,8 @@
 			"italic": false
 		}
 	],
-	"cSpell.words": ["authed", "trpc"]
+	"cSpell.words": [
+		"authed",
+		"trpc"
+	]
 }
