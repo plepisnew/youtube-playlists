@@ -74,7 +74,7 @@ export const Header: React.FC = () => {
 						alt={auth.snippet.title}
 						height={48}
 						width={48}
-						className="rounded-lg shdaow-md"
+						className="rounded-lg shadow-md"
 					/>
 					<a href="/api/auth/logout" className="hover:underline ml-10">
 						Sign out
@@ -89,7 +89,7 @@ export const Header: React.FC = () => {
 				className={clsx("absolute left-0 right-0 bottom-3", "h-[2px]")}
 				style={{
 					background:
-						"linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.35) 10%, rgba(255, 255, 255, 0.35) 25%, transparent 50%)",
+						"linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.35) 5%, rgba(255, 255, 255, 0.35) 25%, transparent 50%)",
 				}}
 			></div>
 			<div

@@ -87,8 +87,5 @@
 			"italic": false
 		}
 	],
-	"cSpell.words": [
-		"authed",
-		"trpc"
-	]
+	"cSpell.words": ["authed", "clsx", "trpc"]
 }

@@ -4,6 +4,7 @@ import { PageParams } from "@/@types/utils";
 import { PlaylistItem } from "@/@types/youtube";
 import { trpc } from "@/utils/trpc";
 import moment from "moment";
+import { FaFileDownload, FaInfoCircle, FaPlayCircle } from "react-icons/fa";
 
 const PlaylistPage: React.FC<PageParams<"playlistId">> = ({
 	params: { playlistId },
@@ -13,6 +14,7 @@ const PlaylistPage: React.FC<PageParams<"playlistId">> = ({
 		playlistId,
 	});
 
+	console.log(data);
 	// TODO add loading UI
 	if (status === "loading") return <div>Loading...</div>;
 
@@ -41,8 +43,12 @@ const PlaylistItemCard: React.FC<{ playlistItem: PlaylistItem }> = ({
 				alt={snippet.title}
 				className="w-full"
 			/>
-			<div className="absolute bottom-0 top-[calc(24px_+_1.5rem)] -right-16 w-16 bg-black text-white flex flex-col items-center group-hover:right-0 transition-all">
-				test
+			<div className="absolute bottom-0 top-[calc(24px_+_1.5rem)] -right-16 w-16 bg-red-800 text-white flex flex-col items-center group-hover:right-0 transition-all p-3 gap-3">
+				<FaPlayCircle size={32} />
+				<div className="h-[2px] bg-white w-full rounded-full"></div>
+				<FaInfoCircle size={32} />
+				<div className="h-[2px] bg-white w-full rounded-full"></div>
+				<FaFileDownload size={32} />
 			</div>
 		</div>
 	);
